@@ -1,25 +1,124 @@
-import React from 'react';
-import { Building2 } from 'lucide-react';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-const Header = () => {
-    return (
-        <header className="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg mb-8">
-            <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                        <Building2 className="h-8 w-8 text-white" />
-                        <h1 className="text-3xl font-bold text-white">Empresas.io</h1>
-                    </div>
-                    <nav className="hidden sm:flex space-x-8">
-                        <a href="#" className="text-white hover:text-blue-200 font-medium">Dashboard</a>
-                        <a href="#" className="text-white hover:text-blue-200 font-medium">Empresas</a>
-                        <a href="#" className="text-white hover:text-blue-200 font-medium">Relatórios</a>
-                        <a href="#" className="text-white hover:text-blue-200 font-medium">Configurações</a>
-                    </nav>
-                </div>
-            </div>
-        </header>
-    );
-};
+import logo from '../image/logo.png';
 
+const pages = ['Github', 'Termos', 'Sugerir Empresas'];
+
+function Header() {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <LocationOnIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <img sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} src={logo} style={{ display: { xs: 'none', md: 'flex' }, mr: 1, height: '50px' }} alt="Logo" /> */}
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.1.5rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Empresas.io
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: 'block', md: 'none' } }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <LocationOnIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Empresas.io
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
 export default Header;
